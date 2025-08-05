@@ -27,8 +27,10 @@ if (userExists) {
 let role = "member";
 if (
   adminInviteToken &&
-  adminInviteToken == process.env.ADMIN_INVITE_TOKEN
+  adminInviteToken.trim() === process.env.ADMIN_INVITE_TOKEN.trim()
 ) {
+  console.log("Provided token:", adminInviteToken);
+console.log("Expected token:", process.env.ADMIN_INVITE_TOKEN);
   role = "admin";
 
 }
