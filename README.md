@@ -85,37 +85,35 @@ README.md
 - Auth middleware & optional admin check
 
 ## 🧪 API Reference
-Base URL: `http://localhost:8080/api/v1`
 
-### Auth
-- POST `/auth/signup`
-- POST `/auth/login`
-- GET `/auth/me`
-- POST `/auth/avatar`
+> Base URL: `http://localhost:8080/api`
 
-### Users
-- GET `/users`
-- GET `/users/:id`
+### 🔑 Auth (`/api/auth`)
+| Method | Endpoint   | Description |
+|--------|------------|-------------|
+| POST   | `/signup`  | Register new user |
+| POST   | `/login`   | User login & JWT token |
+| GET    | `/me`      | Get logged-in user |
+| POST   | `/avatar`  | Upload profile image |
 
-### Tasks
-- GET `/tasks`
-- POST `/tasks`
-- GET `/tasks/:id`
-- PATCH `/tasks/:id`
-- PATCH `/tasks/:id/status`
-- DELETE `/tasks/:id`
+### 👤 Users (`/api/users`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET    | `/`      | Get all users |
+| GET    | `/:id`   | Get specific user details |
 
-### Reports
-- GET `/reports/tasks`
-- GET `/reports/users`
-
-## 🔎 Query, Pagination & Sorting
-- Pagination: `page`, `limit`
-- Sorting: `sort=field` or `sort=-field`
-- Filters: `status`, `priority`, `assignee`, date ranges
+### ✅ Tasks (`/api/tasks`)
+| Method | Endpoint       | Description |
+|--------|----------------|-------------|
+| GET    | `/`            | Get all tasks (with filters) |
+| POST   | `/`            | Create a new task |
+| GET    | `/:id`         | Get a specific task |
+| PATCH  | `/:id`         | Update task details |
+| PATCH  | `/:id/status`  | Update task status |
+| DELETE | `/:id`         | Delete a task |
 
 ## 🛡️ Security
-- Postman, CORS, rate limiting, strong JWT secret, file upload checks
+- Helmet, CORS, rate limiting, strong JWT secret, file upload checks
 
 ## 🧪 Testing
 - Jest or Mocha with in-memory MongoDB
@@ -123,5 +121,13 @@ Base URL: `http://localhost:8080/api/v1`
 
 
 
+## 📜 License
+MIT
 
-
+## 🚀 Start Server
+```js
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
+```
