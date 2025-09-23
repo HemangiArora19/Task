@@ -2,7 +2,7 @@ import React from 'react'
 
 const ManageUser = () => {
   return (
-    <div>ManageUser copy</div>
+    <div>ManageUser </div>
   )
 }
 

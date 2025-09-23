@@ -75,6 +75,7 @@ import MyTasks from "./pages/Users/MyTasks";
 import ViewTaskDetails from "./pages/Users/ViewTaskDetails";
 import PrivateRoute from "./routes/PrivateRoute";
 import UserProvider, { UserContext } from "./context/userContext";
+import { Toaster } from "react-hot-toast";
 
 // Root component to decide where to navigate after login
 const Root = () => {
@@ -119,6 +120,12 @@ const App = () => {
           <Route path="/" element={<Root />} />
         </Routes>
       </Router>
+      <Toaster toastOptions={{
+        className:'',
+        style:{
+          fontSize: '14px',
+        },
+      }}/>
     </UserProvider>
   );
 };
