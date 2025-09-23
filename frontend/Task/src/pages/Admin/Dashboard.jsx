@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../../utils/axiosIntance'
 import { API_PATHS } from '../../utils/apiPath'
 
-import {moment} from 'moment'
+import moment from 'moment'
 import { addThousandsSeparator } from '../../utils/helper'
 import InfoCard from '../../Card/InfoCard'
 import TaskListTable from '../../componenets/TaskListTable'
