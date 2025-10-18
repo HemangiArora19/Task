@@ -1,4 +1,4 @@
-export const BASE_URL = "https://backend-umber-iota-99.vercel.app/";
+export const BASE_URL = "https://backend-umber-iota-99.vercel.app";
 // utils/apiPaths.js
 export const API_PATHS = {
   AUTH: {
