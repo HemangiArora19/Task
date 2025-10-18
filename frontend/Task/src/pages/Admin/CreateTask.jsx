@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { PRIORITY_DATA } from "../../utils/data";
 import axiosInstance from "../../utils/axiosIntance";
@@ -78,7 +78,36 @@ clearData();
   };
 
   // Update Task
-  const updateTask = async () => {};
+  const updateTask = async () => {
+    setLoading(true)
+    try {
+  const todolist = taskData.todoChecklist?.map((item) => {
+    const prevTodoChecklist = currentTask?.todoChecklist || [];
+    const matchedTask = prevTodoChecklist.find((task) => task.text == item);
+
+    return {
+      text: item,
+      completed: matchedTask ? matchedTask.completed : false,
+    };
+  });
+
+  const response = await axiosInstance.put(
+    API_PATHS.TASKS.UPDATE_TASK(taskId),
+    {
+      ...taskData,
+      dueDate: new Date(taskData.dueDate).toISOString(),
+      todoChecklist: todolist,
+    }
+  );
+   console.log("Task updated:", response.data);
+  toast.success("Task Updated Successfully");
+} catch (error) {
+  console.log(error);
+}finally{
+  setLoading(false)
+}
+
+  };
 
   const handleSubmit = async () => {
     setError(null)
@@ -113,8 +142,39 @@ createTask()
   };
 
   // get Task info by ID
-  const getTaskDetailsByID = async () => {};
+  const getTaskDetailsByID = async () => {
+    try {
+    const response = await axiosInstance.get(API_PATHS.TASKS.GET_TASK_BY_ID(taskId));
 
+
+
+    if (response.data) {
+      const taskInfo = response.data;
+      setCurrentTask(taskInfo);
+
+      setTaskData(() => ({
+        title: taskInfo.title,
+        description: taskInfo.description,
+        priority: taskInfo.priority,
+        dueDate: taskInfo.dueDate
+          ? moment(taskInfo.dueDate).format("YYYY-MM-DD")
+          : null,
+        assignedTo: taskInfo?.assignedTo?.map((item) => item?._id) || [],
+        todoChecklist: taskInfo?.todoChecklist?.map((item) => item?.text) || [],
+        attachments: taskInfo?.attachments || [],
+      }));
+    }
+  } catch (error) {
+    console.error("Error fetching task details:", error);
+    toast.error("Failed to load task details.");
+  }
+  };
+useEffect(()=>{
+    if(taskId){
+        getTaskDetailsByID(taskId)
+    }
+    return () => {};
+},[taskId])
   // Delete Task
   const deleteTask = async () => {};
 
